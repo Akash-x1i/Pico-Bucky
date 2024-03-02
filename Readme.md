@@ -1,0 +1,1 @@
+Install information on https://akashbauri.tech/Pico-Bucky

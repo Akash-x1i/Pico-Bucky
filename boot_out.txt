@@ -1,0 +1,6 @@
+Adafruit CircuitPython 8.2.10 on 2024-02-14; Raspberry Pi Pico W with rp2040
+Board ID:raspberry_pi_pico_w
+UID:E6616408433F4124
+MAC:28:CD:C1:0A:12:B6
+boot.py output:
+Disabling USB drive

