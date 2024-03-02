@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTML Keyboard</title>
+<style>
+  .keyboard-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  .key {
+    width: 70px;
+    height: 50px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<textarea id="textarea" cols="30" rows="10"></textarea>
+<div class="keyboard-container" id="keyboard">
+  <div class="key">TAB</div>
+  <div class="key">CAPSLOCK</div>
+  <div class="key">SHIFT</div>
+  <div class="key">CTRL</div>
+  <div class="key">FN</div>
+  <div class="key">ESC</div>
+  <div class="key">ENTER</div>
+  <div class="key">BACKSPACE</div>
+  <div class="key">DELETE</div>
+  <div class="key">ALT</div>
+</div>
+
+<script>
+  const textarea = document.getElementById('textarea');
+  const keyboard = document.getElementById('keyboard');
+
+  keyboard.addEventListener('click', (event) => {
+    if (event.target.classList.contains('key')) {
+      const key = event.target.textContent;
+      textarea.value += key + '\n';
+    }
+  });
+</script>
+
+</body>
+</html>
