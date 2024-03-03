@@ -158,7 +158,6 @@ def edit(request, filename):
 
 @web_app.route("/write/<filename>",methods=["POST"])
 def write_script(request, filename):
-n
     data = request.body.getvalue()
     fields = data.split("&")
     form_data = {}
