@@ -67,9 +67,23 @@ def convertLine(line):
     # print(newline)
     return newline
 
+def convertKey(keyBtn):
+    keyBtn = keyBtn.upper()
+    keyCommand = duckyCommands.get(keyBtn, None)
+    if keyCommand is not None:
+        sendKey(keyCommand)
+    elif hasattr(Keycode, keyBtn):
+        sendKey(getattr(Keycode, keyBtn))
+    else:
+        print(f"Unknown key: <{keyBtn}>")
+
 def runScriptLine(line):
     for k in line:
         kbd.press(k)
+    kbd.release_all()
+
+def sendKey(keyBtn):    
+    kbd.press(keyBtn)
     kbd.release_all()
 
 def sendString(line):
@@ -166,6 +180,25 @@ def runScript(file):
             time.sleep(float(defaultDelay)/1000)
     except OSError as e:
         print("Unable to open file ", file)
+
+def runKey(keyBtn):
+    global defaultDelay
+    sendKey(keyBtn)
+    # try:
+        # previousKey = ""
+        # if(line[0:6] == "REPEAT"):
+        #     for i in range(int(line[7:])):
+        #         #repeat the last command
+        #         parseKey(previousKey)
+        #         time.sleep(float(defaultDelay)/1000)
+        # else:
+        #     parseKey(key)
+        #     previousKey = key
+        
+
+    #     time.sleep(float(defaultDelay)/1000)
+    # except OSError as e:
+    #     print("Unable to open file ", file)
 
 def selectPayload():
     global payload1Pin, payload2Pin, payload3Pin, payload4Pin

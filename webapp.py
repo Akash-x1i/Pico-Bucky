@@ -62,6 +62,43 @@ new_html = """<!DOCTYPE html>
 </html>
 """
 
+keyboard_html = """<!DOCTYPE html>
+<html>
+<head>
+    <title>Custom Submit Button Action</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.submit-button').click(function(event){
+                event.preventDefault();
+                // Extract data from the clicked button
+                var dataValue = $(this).data('value');
+                // Send data via AJAX
+                $.ajax({
+                    type: 'POST',
+                    url: 'keystroke', // Replace with your actual endpoint
+                    data: { data: dataValue },
+                    success: function(response) {
+                        // Handle success response
+                        alert('Data posted successfully: ' + dataValue);
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle error response
+                        alert('Error posting data: ' + error);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <button class="submit-button" data-value="data1">Submit Data 1</button>
+    <button class="submit-button" data-value="data2">Submit Data 2</button>
+    <button class="submit-button" data-value="data3">Submit Data 3</button>
+</body>
+</html>
+"""
+
 response_html = """<!DOCTYPE html>
 <html>
     <head> <title>Pico W Ducky</title> </head>
@@ -211,6 +248,23 @@ def run_script(request, filename):
     runScript(filename)
     return("200 OK",[('Content-Type', 'text/html')], response)
 
+@web_app.route("/keystroke",methods=['GET','POST'])
+def run_key(request):
+    if(request.method == 'GET'):
+        response = ''
+        response = keyboard_html
+        return("200 OK",[('Content-Type', 'text/html')], response)
+    else:
+        data = request.body.getvalue()
+        # fields = data.split("&")
+        # form_data = {}
+        keyBtn = ""
+        for field in data:
+            key,value = field.split('=')
+            keyBtn = value
+        runKey(keyBtn)
+        return("200 OK",[('Content-Type', 'text/plain')], "Success")
+
 @web_app.route("/")
 def index(request):
     response = ducky_main(request)
@@ -241,4 +295,3 @@ async def startWebService():
         wsgiServer.update_poll()
         await asyncio.sleep(0)
 
-n
